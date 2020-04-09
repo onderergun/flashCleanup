@@ -53,15 +53,11 @@ def deleteFile(switchuser, switchpass, ssh_host, image):
 
 with open(inventory) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
-    k="FirstRow"
-    for row in csv_reader:
-       if k=="FirstRow":
-           i=0
-           for column in row:
-               if row[i]=="IP Address" or row[i]=="IPAddress":
-                   hostIndex=i
-                   k="NotFirstRow"
-               i=i+1
+    for iter,row in enumerate(csv_reader):
+       if iter == 0 :
+           for num,column in enumerate(row):
+               if column == "IP Address" or column == "IPAddress":
+                   hostIndex=num
        else:
            ssh_host=row[hostIndex]
            print ssh_host
