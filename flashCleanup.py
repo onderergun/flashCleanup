@@ -60,24 +60,24 @@ with open(inventory) as csv_file:
                    hostIndex=num
        else:
            ssh_host=row[hostIndex]
-           print ssh_host
+           print (ssh_host)
            flashcontents=dirflash(switchuser,switchpass,ssh_host)
            currentimage= getCurrentImage(switchuser, switchpass, ssh_host)
-           print "Current image is: ",currentimage
+           print ("Current image is: ",currentimage)
            images = flashcontents[0]
            freeMbytes=flashcontents[1]
            if len(images)==1:
                if images[0] == currentimage:
-                   print "There are no images to delete"
-                   print freeMbytes, "MBytes free"
+                   print ("There are no images to delete")
+                   print (freeMbytes, "MBytes free")
            if len(images)>1:
                for image in images:
                    if image != currentimage:
-                       print "deleting ", image
+                       print ("deleting ", image)
                        deleteFile(switchuser, switchpass, ssh_host, image)
                        if deleteFile == {}:
-                           print "Success"
-               print "There are no more images to delete"
+                           print ("Success")
+               print ("There are no more images to delete")
                flashcontents=dirflash(switchuser,switchpass,ssh_host)
                freeMbytes=flashcontents[1]
-               print freeMbytes, "MBytes free"
+               print (freeMbytes, "MBytes free")
